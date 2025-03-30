@@ -26,7 +26,7 @@ impl Snake {
     }
 
     pub fn posible_barriers(&self) -> Vec<Point> {
-        let mut barriers_set: HashSet<Point> = self.0.iter().cloned().collect();
+        let mut barriers_set: HashSet<Point> = self.0.iter().take(3).cloned().collect();
         const ALL_DIRECTIONS: [Direction; 4] = [Direction::Up, Direction::Left, Direction::Down, Direction::Right];
         for d in ALL_DIRECTIONS {
             barriers_set.insert(
@@ -37,6 +37,6 @@ impl Snake {
     }
 
     pub fn absolute_barriers(&self) -> Vec<Point> {
-        self.0.clone()
+        self.0.iter().take(3).cloned().collect()
     }
 }
