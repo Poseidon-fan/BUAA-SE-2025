@@ -2,7 +2,7 @@ import assert from "assert";
 
 // Choose proper "import" depending on your PL.
 // import { greedySnakeMoveBarriers } from "./t2_as/build/release.js";
-// import { greedy_snake_move_barriers as greedySnakeMoveBarriers } from "./t2_rust/pkg/t2_rust.js"
+import { greedy_snake_move_barriers as greedySnakeMoveBarriers } from "./t2_rust/pkg/t2_rust.js"
 // [Write your own "import" for other PLs.]
 
 function greedy_snake_barriers_checker(initial_snake, food_num, foods, barriers, access) {
@@ -22,6 +22,7 @@ function greedy_snake_barriers_checker(initial_snake, food_num, foods, barriers,
 
     while (turn <= 200) {
         const direction = greedySnakeMoveBarriers(current_snake, current_foods, barriers);
+        console.log("direction: ", direction)
 
         if (access === 0) {
             if (direction !== -1) {
