@@ -6,7 +6,7 @@ use crate::{point::Point, snake::Snake};
 pub struct Board {
     pub length: i32,
     enemies: Vec<Snake>,
-    foods: Vec<Food>
+    pub foods: Vec<Food>
 }
 
 impl Board {
@@ -21,6 +21,10 @@ impl Board {
     pub fn possible_barriers(&self) -> HashSet<Point> {
         self.enemies.iter().flat_map(|s| s.posible_barriers()).collect()
     }
+
+    pub fn absolute_barriers(&self) -> HashSet<Point> {
+        self.enemies.iter().flat_map(|s| s.absolute_barriers()).collect()
+    }
 }
 
 #[derive(Debug)]
@@ -29,5 +33,11 @@ pub struct Food(Point);
 impl From<(i32, i32)> for Food {
     fn from(pos: (i32, i32)) -> Self {
         Self(Point::from(pos))
+    }
+}
+
+impl Food {
+    pub fn point(&self) -> &Point {
+        &self.0
     }
 }

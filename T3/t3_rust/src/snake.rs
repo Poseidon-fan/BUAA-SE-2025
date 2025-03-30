@@ -34,6 +34,9 @@ impl Snake {
             );
         }
         barriers_set.into_iter().collect()
+    }
 
+    pub fn absolute_barriers(&self) -> Vec<Point> {
+        self.0.clone()
     }
 }

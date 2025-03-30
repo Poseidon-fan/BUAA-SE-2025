@@ -1,5 +1,5 @@
 use board::{Board, Food};
-use point::Direction;
+use point::{Direction, Point};
 use snake::Snake;
 use wasm_bindgen::prelude::wasm_bindgen;
 
@@ -54,15 +54,42 @@ pub fn greedy_snake_step(
         .cloned()
         .collect();
 
-    for d in posible_directions {
-        let new_head = my_snake.head().move_to(d);
+    let mut choices = Vec::new();
+    for d in &posible_directions {
+        let new_head = my_snake.head().move_to(*d);
         if !(new_head.x >= 1 && new_head.x <= board.length && new_head.y >= 1 && new_head.y <= board.length) {
             continue;
         }
-        if !board.possible_barriers().contains(&my_snake.head().move_to(d)) {
-            return d as i32;
+        if !board.possible_barriers().contains(&my_snake.head().move_to(*d)) {
+            choices.push(*d);
+        }
+    }
+
+    if !choices.is_empty() {
+        return choices
+            .iter()
+            .map(|&d| (d, calc_distance(&board, &my_snake.head().move_to(d))))
+            .min_by(|a, b| a.1.cmp(&b.1))
+            .unwrap()
+            .0 as i32;      
+    }
+    
+    for d in &posible_directions {
+        let new_head = my_snake.head().move_to(*d);
+        if !(new_head.x >= 1 && new_head.x <= board.length && new_head.y >= 1 && new_head.y <= board.length) {
+            continue;
+        }
+        if !board.absolute_barriers().contains(&my_snake.head().move_to(*d)) {
+            return *d as i32;
         }
     }
     0
 }
 
+fn calc_distance(board: &Board, target: &Point) -> i32 {
+    board.foods
+        .iter()
+        .map(|f| f.point().distance(target))
+        .min() 
+        .unwrap()
+}

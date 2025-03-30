@@ -19,6 +19,10 @@ impl Point {
             Direction::Right => Self { x: self.x + 1, y: self.y },
         }
     }
+
+    pub fn distance(&self, other: &Self) -> i32 {
+        (self.x - other.x).abs() + (self.y - other.y).abs()
+    }
 }
 
 #[repr(i32)]
@@ -53,3 +57,4 @@ impl From<(&Point, &Point)> for Direction {
         }
     }
 }
+
