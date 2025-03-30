@@ -4,7 +4,8 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "submit-test": "node test.js"
+    "submit-test": "node test.js",
+    "demo-test": "node demo.js"
   },
   "type": "module",
   "author": "BUAAASE-2025",

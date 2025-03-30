@@ -2,7 +2,7 @@ import assert from "assert";
 
 // Choose proper "import" depending on your PL.
 // import { greedy_snake_move } from "./t1-as/build/release.js";
-// import { greedy_snake_move } from "./t1_rust/pkg/t1_rust.js";
+import { greedy_snake_move } from "./t1_rust/pkg/t1_rust.js";
 // [Write your own "import" for other PLs.]
 
 function greedy_snake_fn_checker (snake, food) {
@@ -12,6 +12,7 @@ function greedy_snake_fn_checker (snake, food) {
     let turn = 1;
     while (true) {
         let result = greedy_snake_move(now_snake, food);
+        console.log("--------------------Turn: " + turn + " Result: " + result);
         let new_snake = [
             now_snake[0] + (result == 3) - (result == 1),
             now_snake[1] + (result == 0) - (result == 2),
